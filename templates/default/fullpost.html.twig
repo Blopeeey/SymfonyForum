@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .comment{
+        width: 100%;
+        height: 5em;
+        margin: 20px auto;
+    }
+</style>
+        {% if post %}
+            <div class="container" style="background-color: rgb(240, 240, 240); margin: 30px auto;">
+                <div class="full-post">
+                <span style="font-size: 25px;">{{ post.title }}</span><span style="font-size: 15px; color: gray;"> User: {{ post.user }}  &nbsp; Category: {{ post.category }}</span><br/>
+                <img src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="post image" width="300" style="padding-bottom: 10px;">
+                {{ post.body }}
+                </div>
+            </div>
+            {% if app.user %}
+            <div class="container" style="background-color: rgb(240, 240, 240); margin: 30px auto;">
+                {{ include('default/_form.html.twig') }}
+            </div>
+            {% else %}
+                <div class="container" style="background-color: rgb(240, 240, 240); margin: 30px auto;">
+                    You have to login to comment
+                </div>
+            {% endif %}
+            {% if comment %}
+                {% for comment in comment |sort|reverse %}
+                    <div class="container" style="background-color: rgb(240, 240, 240); margin: 30px auto; padding: 10px 0 10px 20px;">
+                        <span style="opacity: 0.3;">User/{{ comment.user }}</span><br/>
+                        {{ comment.body }}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="container" style="background-color: rgb(240, 240, 240); padding: 0 490px">
+                    Nothing to find here
+                </div>
+            {% endif %}
+        {% else %}
+            Bruh
+        {% endif %}
+{% endblock %}

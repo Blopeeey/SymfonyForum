@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <style>
+        .img{
+            position: relative;
+            float: left;
+            width:  150px;
+            height: 150px;
+            background-position: 50% 50%;
+            background-repeat:   no-repeat;
+            background-size:     cover;
+        }
+    </style>
+    {% if posts %}
+        <br/>
+        <div class="container">
+            <h4>Posts</h4>
+            {% for post in posts |sort|reverse  %}
+                <!-- Project One -->
+                <a href="/fullpost/{{ post.id }}" style="text-decoration: none;">
+                    <div class="row" style="border:1px solid black; margin: 0 0 20px 0;">
+                        <img class="img" src="{{ vich_uploader_asset(post, 'imageFile') }}" width="160px" alt="">
+                        <div class="col-md-5">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.body }}</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- /.row -->
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if accpost %}
+        <br/>
+        <div class="container">
+            <h4>Accepted posts</h4>
+            {% for post in accpost |sort|reverse  %}
+                <!-- Project One -->
+                <a href="/fullpost/{{ post.id }}" style="text-decoration: none;">
+                    <div class="row" style="border:1px solid green; margin: 0 0 20px 0;">
+                        <img class="img" src="{{ vich_uploader_asset(post, 'imageFile') }}" width="160px" alt="">
+                        <div class="col-md-5" style="color: green;">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.body }}</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- /.row -->
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if decpost %}
+        <br/>
+        <div class="container">
+            <h4>Declined posts</h4>
+            {% for post in decpost |sort|reverse  %}
+                <!-- Project One -->
+                <a href="/fullpost/{{ post.id }}" style="text-decoration: none;">
+                    <div class="row" style="border:1px solid red; margin: 0 0 20px 0;">
+                        <img class="img" src="{{ vich_uploader_asset(post, 'imageFile') }}" width="160px" alt="">
+                        <div class="col-md-5" style="color: red;">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.body }} Reason: {{ post.reason }}</p>
+                        </div>
+                    </div>
+                </a>
+                <!-- /.row -->
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

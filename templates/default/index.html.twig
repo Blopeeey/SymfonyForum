@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!{% endblock %}
+
+{% block body %}
+    <style>
+        .img{
+            position: relative;
+            float: left;
+            width:  200px;
+            height: 200px;
+            background-position: 50% 50%;
+            background-repeat:   no-repeat;
+            background-size:     cover;
+        }
+    </style>
+        <br/>
+        <div class="container">
+            {% for post in posts |sort|reverse  %}
+                <!-- Project One -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#">
+                            <img class="img" src="{{ vich_uploader_asset(post, 'imageFile') }}" alt="image">
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <span style="font-size: 25px">{{ post.title }}</span><span style="font-size: 15px; color: gray;"> Created by: {{ post.user }} - Category: {{ post.category }}</span>
+                        <p>{{ post.body }}</p>
+                        <a class="btn btn-primary" href="/fullpost/{{ post.id }}">View post</a>
+                    </div>
+                </div><br/>
+                <!-- /.row -->
+            {% endfor %}
+        </div>
+{% endblock %}
